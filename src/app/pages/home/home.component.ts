@@ -34,7 +34,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class HomeComponent {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = [...ELEMENT_DATA];
-
+  
   @ViewChild(MatTable) table!: MatTable<PeriodicElement>;
   addData() {
     const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
@@ -60,4 +60,5 @@ export class HomeComponent {
       PDF.save('angular-demo.pdf');
     });
   }
+
 }

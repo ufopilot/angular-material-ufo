@@ -22,6 +22,8 @@ export class AppComponent {
   searchValue = '';
   searchVisibility = "hidden";
   menu: any;
+  public isAuthenticated = false;
+
   constructor() { 
     this.menu = [{
       "name": "Dahboards",
@@ -53,6 +55,10 @@ export class AppComponent {
     this.searchVisibility = 'shown';
     else
     this.searchVisibility = 'hidden';
+  }
+
+  public logout(): void {
+    // todo
   }
   
 }

@@ -12,6 +12,7 @@ import { MessagesComponent } from './messages/messages.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
+import { GameComponent } from './pages/game/game.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { HomeComponent } from './pages/home/home.component';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    HomeComponent
+    HomeComponent,
+    GameComponent
   ],
   bootstrap: [ AppComponent ]
 })

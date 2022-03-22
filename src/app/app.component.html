@@ -215,18 +215,19 @@
       <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="toggleSerchfield()">
         <mat-icon>search</mat-icon>
       </button>
+
       <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon>forum</mat-icon>
       </button>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <button mat-icon-button [matMenuTriggerFor]="notifications_menu" aria-label="Example icon-button with a menu">
         <mat-icon>notifications</mat-icon>
       </button>
-      <mat-menu #menu="matMenu">
+      <mat-menu #notifications_menu="matMenu">
         <button mat-menu-item>
           <mat-icon>dialpad</mat-icon>
           <span>Redial</span>
         </button>
-        <button mat-menu-item disabled>
+        <button mat-menu-item>
           <mat-icon>voicemail</mat-icon>
           <span>Check voice mail</span>
         </button>
@@ -235,9 +236,25 @@
           <span>Disable alerts</span>
         </button>
       </mat-menu>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      
+      <button mat-icon-button [matMenuTriggerFor]="user_menu" aria-label="Example icon-button with a menu">
         <mat-icon>manage_accounts</mat-icon>
       </button>
+      <mat-menu #user_menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>settings_accessibility</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item routerLink="/login" *ngIf="!isAuthenticated">
+          <mat-icon>power_settings_new</mat-icon>
+          Login
+        </button>
+        <button mat-menu-item *ngIf="isAuthenticated" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
+
       <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
         (click)="drawerright.toggle()">
         <mat-icon>settings</mat-icon>

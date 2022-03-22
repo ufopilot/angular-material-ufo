@@ -5,6 +5,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { HomeComponent } from './pages/home/home.component';
+import { GameComponent } from './pages/game/game.component';
 
 const routes: Routes = [
   { path: '', 
@@ -14,6 +15,10 @@ const routes: Routes = [
   { 
     path: 'home', 
     component: HomeComponent
+  },
+  { 
+    path: 'game', 
+    component: GameComponent
   },
   { 
     path: 'dashboards', 
