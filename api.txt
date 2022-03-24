@@ -1,1 +1,1 @@
-https://alquran.cloud/api
+quran https://alquran.cloud/api

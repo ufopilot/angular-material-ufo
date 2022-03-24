@@ -11,45 +11,55 @@
 <main class="content-warapper">
   <!-- <mat-card> -->
   <div class="demo-button-container">
-    <button mat-raised-button (click)="addData()" class="demo-button">
-      Add data
-    </button>
-    <button mat-raised-button [disabled]="!dataSource.length" (click)="removeData()" class="demo-button">
-      Remove data
-    </button>
     <button mat-raised-button (click)="openPDF()" class="demo-button">
       Save PDF
     </button>
+    <button mat-raised-button (click)="getMeta()" class="demo-button">
+      getChapters
+    </button>
+
   </div>
   <div id="content" #content>
-    <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef>No.</th>
-        <td mat-cell *matCellDef="let element">{{element.position}}</td>
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filter Table Rows" #input>
+    </mat-form-field>
+    <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" matSort>
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+        <td mat-cell *matCellDef="let element">{{element.number}}</td>
       </ng-container>
-
-      <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let element" style="direction: rtl;">{{element.name}}</td>
       </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef>Weight</th>
-        <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+      <ng-container matColumnDef="englishName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>English Name</th>
+        <td mat-cell *matCellDef="let element">{{element.englishName}}</td>
       </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef>Symbol</th>
-        <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+      <ng-container matColumnDef="englishNameTranslation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>English Name Translation</th>
+        <td mat-cell *matCellDef="let element">{{element.englishNameTranslation}}</td>
+      </ng-container>
+      <ng-container matColumnDef="numberOfAyahs">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Number Of Ayahs</th>
+        <td mat-cell *matCellDef="let element">{{element.numberOfAyahs}}</td>
+      </ng-container>
+      <ng-container matColumnDef="revelationType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Revelation Type</th>
+        <td mat-cell *matCellDef="let element">{{element.revelationType}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
     </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 100, 150]" aria-label="Select page of users"></mat-paginator>
   </div>
   <!-- </mat-card> -->
 </main>
