@@ -18,6 +18,7 @@ export interface Element {
 
 const ELEMENT_DATA: Element[] = [];
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,13 +28,34 @@ const ELEMENT_DATA: Element[] = [];
 export class HomeComponent implements AfterViewInit  {
   displayedColumns: string[] = ['number', 'englishName', 'englishNameTranslation', 'numberOfAyahs', 'revelationType', 'name'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+  langs: string[] = [];
+  selectedLanguage: string = "ar";
+  editions:any []
+  selectedEdition: string = ""
+  languageNames = new Intl.DisplayNames(['en'], {
+    type: 'language'
+  });
+  fileSource:any = 'https://media.sd.ma/assabile/recitations_7892537823/mp3/yasser-al-dossari-001-al-fatiha-4920-9396.mp3';
   
   // @ViewChild(MatPaginator)
   // paginator!: MatPaginator;
   // @ViewChild(MatSort) sort = new MatSort();
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
-  constructor(public restApi: RestApiService, public router: Router) { }
+  constructor(public restApi: RestApiService, public router: Router) { 
+
+    this.editions = [
+      { 
+        "identifier": "ar.muyassar",
+        "language": "ar",
+        "name": "تفسير المیسر",
+        "englishName": "King Fahad Quran Complex",
+        "format": "text",
+        "type": "tafsir",
+        "direction": "rtl"
+      }
+    ];
+  }
   ngOnInit(): void {
      //throw new Error('Method not implemented.');
      
@@ -41,11 +63,18 @@ export class HomeComponent implements AfterViewInit  {
   }
 
   ngAfterViewInit() {
+    this.restApi.getAllLanguages().subscribe((resp: any) => {
+      this.langs = resp['data'];
+    });
+    this.loadEditions()
+
     this.restApi.getQuranMeta().subscribe((resp: any) => {
       this.dataSource = new MatTableDataSource(resp['data']['surahs']['references']);  
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+
+    
   }
 
   public openPDF(): void {
@@ -74,5 +103,15 @@ export class HomeComponent implements AfterViewInit  {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  loadEditions(){
+    this.restApi.listAllEditionsForLanguage(this.selectedLanguage).subscribe((resp: any) => {
+      this.editions = resp['data'];
+    });
+  }
+
+  getEdition(){
+    console.log(this.selectedEdition)
   }
 }
